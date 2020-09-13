@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { Http } from '../../libs/http'
 
 export const CoinsScreen = ({navigation: { navigate }}) => {
+
+
+  useEffect( () => {
+   (async () => {
+     const coins = await Http.instance.get('https://api.coinlore.net/api/tickers/')
+     console.log(coins)
+   })() 
+  }, [])
 
   const handlePress = () => navigate('CoinDetail')
 
