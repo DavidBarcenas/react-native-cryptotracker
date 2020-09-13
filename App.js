@@ -1,11 +1,12 @@
 import React from 'react';
-import { NavigationContinaer }from '@react-navigation/native'
+import { NavigationContainer }from '@react-navigation/native'
+import { CoinsSack } from './src/components/coins/CoinsStack';
 
 const App = () => {
   return (
-   <NavigationContinaer>
-     
-   </NavigationContinaer>
+   <NavigationContainer>
+     <CoinsSack />
+   </NavigationContainer>
   );
 };
 
