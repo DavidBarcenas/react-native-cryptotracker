@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Image, Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 
 export const CoinsItem = ({ item, onPress }) => {
 
@@ -34,7 +34,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 16,
     borderBottomColor: '#3a4049',
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    paddingLeft: Platform.OS == 'ios' ? 0 : 16,
+    marginLeft: Platform.OS == 'ios' ? 16 : 0,
   },  
   row: {
     flexDirection: 'row',
@@ -55,10 +57,11 @@ const styles = StyleSheet.create({
   },
   nameText: {
     color: '#fff',
-    fontSize: 12,
+    fontSize: 14,
     marginRight: 16
   }, 
   priceText: {
+    color: '#fff',
     fontSize: 14
   },
   percentText: {

@@ -18,7 +18,6 @@ export const CoinsScreen = ({navigation: { navigate }}) => {
    })() 
   }, [])
 
-  console.log(coins)
   const { allCoins, loading } = coins;
 
   const handlePress = (coin) => navigate('CoinDetail', { coin })
