@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Image, SectionList } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
+import { Http } from '../../libs/http'
+import { CoinMarketItem } from './CoinMarketItem'
 
 export const CoinDetailScreen = ({navigation, route}) => {
   const [coin, setCoin] = useState({})
-
-  useEffect(() => {
-    const { coin } = route.params
-    navigation.setOptions({ title: coin.symbol })
-    setCoin(coin)
-  }, [])
+  const [markets, setMarkets] = useState([])
 
   const getSymbolIcon = (name) => {
     if( name ) {
@@ -36,13 +34,26 @@ export const CoinDetailScreen = ({navigation, route}) => {
     return sections;
   }
 
+  const getMarkets = async (coindId) => {
+    const url = `https://api.coinlore.net/api/coin/markets/?id=${coindId}`
+    const markets = await Http.instance.get(url) 
+    setMarkets(markets)
+  }
+
+  useEffect(() => {
+    const { coin } = route.params
+    navigation.setOptions({ title: coin.symbol })
+    getMarkets(coin.id)
+    setCoin(coin)
+  }, [])
+
   return (
     <View style={ style.container }>
       <View style={ style.subHeader }>
         <Image style={ style.iconImg } source={{ uri: getSymbolIcon(coin.name) }} />
         <Text style={ style.titleText }>{ coin.name }</Text>
       </View>
-      <SectionList 
+      <SectionList style={ style.section }
         sections = { getSections(coin) } 
         keyExtractor = {(item) => item}
         renderItem = {({ item }) => 
@@ -55,6 +66,15 @@ export const CoinDetailScreen = ({navigation, route}) => {
             <Text style={ style.sectionText }>{ section.title }</Text> 
           </View>
         }  
+      />
+
+      <Text style={ style.titleMerket }>Markets</Text>
+      <FlatList 
+        style={ style.list }
+        horizontal={ true } 
+        data={ markets } 
+        keyExtractor={(item) => item}
+        renderItem={({item}) => <CoinMarketItem item={ item } />} 
       />
     </View>
   )
@@ -80,6 +100,9 @@ const style = StyleSheet.create({
     width: 25,
     height: 25
   },
+  section: {
+    maxHeight: 220,
+  },  
   sectionHeader: {
     backgroundColor: 'rgba(0,0,0,0.2)',
     paddingHorizontal: 16,
@@ -97,5 +120,15 @@ const style = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
     fontWeight: 'bold'
+  },
+  titleMerket: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 16
+  }, 
+  list: {
+    maxHeight: 90,
+    paddingHorizontal: 10
   }
 })
