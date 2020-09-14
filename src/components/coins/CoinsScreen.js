@@ -21,15 +21,15 @@ export const CoinsScreen = ({navigation: { navigate }}) => {
   console.log(coins)
   const { allCoins, loading } = coins;
 
-  const handlePress = () => navigate('CoinDetail')
+  const handlePress = (coin) => navigate('CoinDetail', { coin })
 
   return (
     <View style={ styles.container }>
       {
-        loading ? <ActivityIndicator color="#F00" size="large" style="styles.loader" /> : null
+        loading ? <ActivityIndicator color="#fff" size="large" style="styles.loader" /> : null
       }
       <FlatList data={ allCoins } renderItem={ ({ item }) => 
-        <CoinsItem item={ item }/>
+        <CoinsItem item={ item } onPress={ () => handlePress(item) }/>
       }/>
     </View>
   );
@@ -38,6 +38,7 @@ export const CoinsScreen = ({navigation: { navigate }}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#272c35',
   },
   btn: {
     padding: 0,
