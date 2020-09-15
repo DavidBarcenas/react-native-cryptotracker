@@ -73,7 +73,7 @@ export const CoinDetailScreen = ({navigation, route}) => {
         style={ style.list }
         horizontal={ true } 
         data={ markets } 
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.price}
         renderItem={({item}) => <CoinMarketItem item={ item } />} 
       />
     </View>
