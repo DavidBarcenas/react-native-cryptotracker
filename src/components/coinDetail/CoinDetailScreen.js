@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Image, SectionList, Pressable, Alert } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
+import { FlatList, ScrollView } from 'react-native-gesture-handler'
 import { Http } from '../../libs/http'
 import { StorageLib } from '../../libs/storage'
 import { CoinMarketItem } from './CoinMarketItem'
@@ -129,13 +129,18 @@ export const CoinDetailScreen = ({navigation, route}) => {
       />
 
       <Text style={ style.titleMerket }>Markets</Text>
-      <FlatList 
+      {/* <FlatList 
         style={ style.list }
         horizontal={ true } 
         data={ markets } 
         keyExtractor={(item) => item.price}
         renderItem={({item}) => <CoinMarketItem item={ item } />} 
-      />
+      /> */}
+      <ScrollView style={ style.marketsView }>
+        <View style={style.list}>
+        {markets.map(item => <CoinMarketItem item={ item } />)}
+        </View>
+      </ScrollView>
     </View>
   )
 }
@@ -191,9 +196,13 @@ const style = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 16
-  }, 
+  },
+  marketsView: {
+    height: 300,
+  } , 
   list: {
-    maxHeight: 90,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     paddingHorizontal: 10
   },
   btnFavorite: {

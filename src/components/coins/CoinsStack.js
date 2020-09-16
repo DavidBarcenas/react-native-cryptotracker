@@ -1,5 +1,5 @@
 import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack'
 import { CoinsScreen } from './CoinsScreen';
 import { CoinDetailScreen } from '../coinDetail/CoinDetailScreen';
 
@@ -15,6 +15,7 @@ export const CoinsSack = () => {
 } 
 
 const screenOpts = {
+  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
   headerStyle: { 
     backgroundColor:'#272c35', 
     borderBottomColor:'#3a4049', 

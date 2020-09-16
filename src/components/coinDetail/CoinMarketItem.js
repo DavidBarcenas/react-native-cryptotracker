@@ -18,8 +18,9 @@ const styles = StyleSheet.create({
     borderBottomColor: '#3a4049',
     borderBottomWidth: 1,
     padding: 16,
-    marginVertical: 8,
-    marginHorizontal: 4
+    marginVertical: 2,
+    marginHorizontal: 4,
+    width: '31%'
   },
   nameText: {
     color: "#fff",
